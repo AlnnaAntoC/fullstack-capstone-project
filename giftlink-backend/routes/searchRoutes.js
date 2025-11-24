@@ -1,9 +1,12 @@
-const db = await connectToDatabase();
 
-req.query.name>req.query.name && req.query.name.trim() !== ''
+// Example of GOOD code:
+const express = require('express');
+const router = express.Router(); 
+const { connectDatabase } = require('../db/connection'); // No await here
 
-query.category = req.query.category;
-query.condition = req.query.condition;
-query.age_years = { $lte: parseInt(req.query.age_years) };
-
-await collection.find(query).toArray()
+// Route handlers are async functions, so await works fine here:
+router.get('/search', async (req, res) => {
+    // AWAIT is now safely inside an async function
+    const db = await connectDatabase(); 
+    // ... rest of your search logic ...
+});
